@@ -5,12 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export async function safeFetch<T>(url: string, options: RequestInit = {}) {
+export async function safeFetch(url: string, options: RequestInit = {}) {
   const isEdge = typeof Response !== "undefined" && globalThis.Request; // crude Edge check
 
   // If sending a body in Edge, add duplex
   if (isEdge && options.body) {
-    // @ts-ignore: duplex is required in Edge runtime
+    // @ts-expect-error: duplex is required in Edge runtime
     options.duplex = "half";
   }
 

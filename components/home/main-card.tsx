@@ -1,6 +1,5 @@
 import { Button } from "../ui/button";
 import Image from "next/image";
-import { Card } from "../ui/card";  
 import Link from "next/link";
 export default function MainCard() {
   return (

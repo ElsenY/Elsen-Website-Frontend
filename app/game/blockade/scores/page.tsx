@@ -35,7 +35,7 @@ const Scores: React.FC = () => {
         if (isMounted) {
           setScores(data.data);
         }
-      } catch (err) {
+      } catch {
         if (isMounted) {
           setError('Failed to load scores');
         }

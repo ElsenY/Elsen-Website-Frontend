@@ -143,7 +143,7 @@ const CanvasRectangle: React.FC = () => {
           return;
         }
       } else {
-        let randomValue = Math.floor(Math.random() * 2) + 1;
+        const randomValue = Math.floor(Math.random() * 2) + 1;
         ballRefs.current[uuid] = {
           direction: randomValue,
           x: window.innerWidth - 20,
@@ -174,7 +174,7 @@ const CanvasRectangle: React.FC = () => {
       cancelAnimationFrame(requestIdRef.current);
     }
 
-    for (let key in requestIdBallRefs.current) {
+    for (const key in requestIdBallRefs.current) {
       cancelAnimationFrame(requestIdBallRefs.current[key]);
     }
     ballRefs.current = {};
@@ -348,7 +348,7 @@ const CanvasRectangle: React.FC = () => {
       try {
         const data = await response.json();
         toast.error(data.message);
-      } catch (err) {
+      } catch {
         toast.error('Failed to submit score');
       }
     }
