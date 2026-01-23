@@ -31,7 +31,7 @@ const CanvasRectangle: React.FC = () => {
 
   const [userSubmitted,setUserSubmitted] = useState(false);
   const [score, setScore] = useState(0);
-  const [life, setLife] = useState(1);
+  const [life, setLife] = useState(10);
   const [playerName, setPlayerName] = useState('');
   const [winHeight, setWinHeight] = useState(1080);
   const [isClient, setIsClient] = useState(false);

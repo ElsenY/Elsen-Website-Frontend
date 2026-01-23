@@ -7,7 +7,7 @@ export default function Hero() {
   return (
     <div className="h-screen w-screen">
       {/* Background Image */}
-      <Card className="bg-white rounded-xl shadow-lg flex flex-col items-center w-[70vw] h-[70vh]">
+      <Card className="bg-white rounded-xl shadow-lg flex flex-col items-center">
         <Image
           src="/images/profile.jpeg"
           alt="Hero Background"
