@@ -27,7 +27,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ fileUrl }) => {
     pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
   }, []);
 
-  const onDocumentLoadSuccess = (pdf: any) => {
+  const onDocumentLoadSuccess = (pdf: { numPages: number }) => {
     setNumPages(pdf.numPages);
   };
 
