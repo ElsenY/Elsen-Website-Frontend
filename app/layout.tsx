@@ -30,6 +30,9 @@ const inriaSerif = localFont({
 export const metadata: Metadata = {
   title: 'Elsen Yacub',
   description: 'Elsen Yacub',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
