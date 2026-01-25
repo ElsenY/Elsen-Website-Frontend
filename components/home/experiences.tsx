@@ -109,7 +109,7 @@ const tokpedExperience =
 <b>TikTok Shop | Tokopedia</b> is one of the biggest e-commerce in Indonesia, having more than <b className="font-extrabold underline">140 Millions</b> monthly active users.<br/>
 <br/>
 
-As a Backend Engineer in TikTok Tokpedia, I am responsible in maintaining day to day activities of Tokopedia&apos;s Database and Redis, and also responsible in developing automations to improve efficiency of Database and Redis team.
+As a Backend Engineer in TikTok Tokopedia, I am responsible in maintaining day to day activities of Tokopedia&apos;s Database and Redis, and also responsible in developing automations to improve efficiency of Database and Redis team.
 </p>
 
 const synapsisExperience = 
