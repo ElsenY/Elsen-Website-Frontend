@@ -183,7 +183,7 @@ const CanvasRectangle: React.FC = () => {
   };
 
   // Resize the canvas when the window is resized
-  const handleMouseMove = (event: MouseEvent) => {
+  const handleMouseMove = (event: PointerEvent) => {
     const rect = canvasRef?.current?.getBoundingClientRect();
     if (rect) {
       positionRef.current.x = event.clientX - 20; // Center the rectangle
@@ -241,7 +241,7 @@ const CanvasRectangle: React.FC = () => {
       if (canvas) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        canvas.addEventListener('mousemove', handleMouseMove);
+        canvas.addEventListener('pointermove', handleMouseMove);
       }
 
       if (cBg) {
@@ -309,12 +309,12 @@ const CanvasRectangle: React.FC = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      canvas.addEventListener('mousemove', handleMouseMove);
+      canvas.addEventListener('pointermove', handleMouseMove);
       requestIdRef.current = requestAnimationFrame(animate); // Start the animation
       intervalRef.current = setInterval(spawnBalls, 500);
       return () => {
         cleanUpGame();
-        canvas.removeEventListener('mousemove', handleMouseMove);
+        canvas.removeEventListener('pointermove', handleMouseMove);
         if (requestIdRef.current) {
           cancelAnimationFrame(requestIdRef.current); // Stop the animation
         }
