@@ -432,7 +432,7 @@ const CanvasRectangle: React.FC = () => {
               <h1>Please Enable Full Screen!</h1>
             </div>
           ) : (
-            <div className="select-none text-white">
+            <div className="touch-none select-none text-white">
               <h1 className="absolute z-100">{score}</h1>
               <h1 className="absolute right-0 z-100">Life : {life}</h1>
               <canvas ref={canvasRef} style={{ position: 'absolute', zIndex: 110 }} />
