@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState, FormEvent, useCallback} from 'react';
+import React, { useEffect, useRef, useState, FormEvent, useCallback } from 'react';
 import { useUIStore } from '@/store/useUIStore';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/ui/button';
@@ -29,7 +29,7 @@ const CanvasRectangle: React.FC = () => {
   const intervalRef = useRef<NodeJS.Timeout>();
   const pingIntervalRef = useRef<NodeJS.Timeout>();
 
-  const [userSubmitted,setUserSubmitted] = useState(false);
+  const [userSubmitted, setUserSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [life, setLife] = useState(10);
   const [playerName, setPlayerName] = useState('');
@@ -198,7 +198,7 @@ const CanvasRectangle: React.FC = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: "include"
+      credentials: 'include',
     })
       .then((response) => response.json())
       .then((data) => {
@@ -210,21 +210,21 @@ const CanvasRectangle: React.FC = () => {
         toast.warning('Could not connect to server, playing in offline mode...');
         setIsOffline(true);
       });
-    
-      if(!isOffline) {
-        pingIntervalRef.current = setInterval(() => {
-          safeFetch('/api/game/ping-session', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              token: localStorage.getItem(GAME_SESSION_TOKEN),
-            }),
-            credentials: "include"
-          });
-        }, 5000);
-      }
+
+    if (!isOffline) {
+      pingIntervalRef.current = setInterval(() => {
+        safeFetch('/api/game/ping-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            token: localStorage.getItem(GAME_SESSION_TOKEN),
+          }),
+          credentials: 'include',
+        });
+      }, 5000);
+    }
   };
 
   // init state
@@ -276,7 +276,7 @@ const CanvasRectangle: React.FC = () => {
           score: score,
           token: localStorage.getItem(GAME_SESSION_TOKEN),
         }),
-        credentials: "include"
+        credentials: 'include',
       });
       cleanUpGame();
 
@@ -325,11 +325,11 @@ const CanvasRectangle: React.FC = () => {
   const submitScore = async (e: FormEvent) => {
     e.preventDefault();
 
-    if(isOffline) {
+    if (isOffline) {
       toast.error('Cannot submit score in offline mode');
       return;
     }
-    
+
     const response = await safeFetch('/api/game/update-user-submitted-at', {
       method: 'POST',
       headers: {
@@ -339,7 +339,7 @@ const CanvasRectangle: React.FC = () => {
         token: localStorage.getItem(GAME_SESSION_TOKEN),
         player_name: playerName,
       }),
-      credentials: "include"
+      credentials: 'include',
     });
 
     if (response.ok) {
@@ -360,63 +360,92 @@ const CanvasRectangle: React.FC = () => {
     window.location.reload();
   };
 
-
-  const GameOver = useCallback(({playerName, score, reloadPage, submitScore, userSubmitted}: {playerName: string, score: number, reloadPage: () => void, submitScore: (e: FormEvent) => void, userSubmitted: boolean}) => {
-    return <div className="flex items-center justify-center h-screen">
-    <div className="flex-col items-center justify-center pb-36">
-      <h1 className="text-red-500 font-bold text-center">Game over, your score is : {score}</h1>
-      {isOffline? <div className="flex gap-2 flex-col items-center justify-center">
-        <h2 className="text-yellow-500">Playing in offline mode, cannot submit score...</h2>
-        <h2 className="text-yellow-500">Press retry to try again</h2>
-        <div className="flex flex-row gap-2">
-          <Button onClick={reloadPage}>Retry?</Button>
-          <Link href={'/game/blockade/scores'}>
-            <Button>Leaderboard</Button>
-          </Link>
-        </div>
-        </div>:
-      <form onSubmit={submitScore}>
-        <h2 className="text-initial">Want to record your score?</h2>
-        <div className="flex flex-col gap-2">
-          <Input
-            id=""
-            value={playerName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPlayerName(e.target.value)}
-            required
-          />
-          <Button type="submit" disabled={userSubmitted}>Submit Score</Button>
-        </div>
-        <div className="pt-4">
-          <div className="flex gap-2 justify-between">
-            {userSubmitted? <>
-              <Button className="w-full" onClick={reloadPage}>Retry?</Button>
-              <Link href={'/game/blockade/scores'}>
-                <Button className="w-full">Leaderboard</Button>
-              </Link>
-            </>:<>
-              <ConfirmDialog 
-                title="Score has not been saved" 
-                description="are you sure want to retry without submitting your score?" 
-                onConfirm={reloadPage} 
-                onCancel={() => {}}
-                trigger={<Button className="w-full">Retry?</Button>}
-              />
-              <ConfirmDialog 
-                title="Score has not been saved" 
-                description="are you sure want to go to the leaderboard without submitting your score?" 
-                onConfirm={() => {window.location.href = '/game/blockade/scores';}} 
-                onCancel={() => {}}
-                trigger={<Button className="w-full">Leaderboard</Button>}
-              />
-            </>
-            }
+  const GameOver = useCallback(
+    ({
+      playerName,
+      score,
+      reloadPage,
+      submitScore,
+      userSubmitted,
+    }: {
+      playerName: string;
+      score: number;
+      reloadPage: () => void;
+      submitScore: (e: FormEvent) => void;
+      userSubmitted: boolean;
+    }) => {
+      return (
+        <div className="flex items-center justify-center h-screen">
+          <div className="flex-col items-center justify-center pb-36">
+            <h1 className="text-red-500 font-bold text-center">Game over, your score is : {score}</h1>
+            {isOffline ? (
+              <div className="flex gap-2 flex-col items-center justify-center">
+                <h2 className="text-yellow-500">Playing in offline mode, cannot submit score...</h2>
+                <h2 className="text-yellow-500">Press retry to try again</h2>
+                <div className="flex flex-row gap-2">
+                  <Button onClick={reloadPage}>Retry?</Button>
+                  <Link href={'/game/blockade/scores'}>
+                    <Button>Leaderboard</Button>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={submitScore}>
+                <h2 className="text-initial">Want to record your score?</h2>
+                <div className="flex flex-col gap-2">
+                  <Input
+                    id=""
+                    className="placeholder:italic"
+                    value={playerName}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPlayerName(e.target.value)}
+                    placeholder="Jame Doe"
+                    required
+                  />
+                  <Button type="submit" disabled={userSubmitted}>
+                    Submit Score
+                  </Button>
+                </div>
+                <div className="pt-4">
+                  <div className="flex gap-2 justify-between">
+                    {userSubmitted ? (
+                      <>
+                        <Button className="w-full" onClick={reloadPage}>
+                          Retry?
+                        </Button>
+                        <Link href={'/game/blockade/scores'}>
+                          <Button className="w-full">Leaderboard</Button>
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <ConfirmDialog
+                          title="Score has not been saved"
+                          description="are you sure want to retry without submitting your score?"
+                          onConfirm={reloadPage}
+                          onCancel={() => {}}
+                          trigger={<Button className="w-full">Retry?</Button>}
+                        />
+                        <ConfirmDialog
+                          title="Score has not been saved"
+                          description="are you sure want to go to the leaderboard without submitting your score?"
+                          onConfirm={() => {
+                            window.location.href = '/game/blockade/scores';
+                          }}
+                          onCancel={() => {}}
+                          trigger={<Button className="w-full">Leaderboard</Button>}
+                        />
+                      </>
+                    )}
+                  </div>
+                </div>
+              </form>
+            )}
           </div>
         </div>
-      </form>
-  }
-    </div>
-  </div>
-  }, [isOffline]);
+      );
+    },
+    [isOffline]
+  );
 
   return (
     <>
@@ -426,8 +455,15 @@ const CanvasRectangle: React.FC = () => {
         </div>
       ) : (
         <>
-          {life <= 0 ? <GameOver playerName={playerName} score={score} reloadPage={reloadPage} submitScore={submitScore} userSubmitted={userSubmitted} />
-            : winHeight < 500 ? (
+          {life <= 0 ? (
+            <GameOver
+              playerName={playerName}
+              score={score}
+              reloadPage={reloadPage}
+              submitScore={submitScore}
+              userSubmitted={userSubmitted}
+            />
+          ) : winHeight < 500 ? (
             <div className="text-red-500">
               <h1>Please Enable Full Screen!</h1>
             </div>
