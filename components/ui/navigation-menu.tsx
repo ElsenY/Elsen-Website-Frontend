@@ -149,7 +149,7 @@ function NavBar(props: { title?: string }) {
       <NavigationMenu>
         <div className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#293542] px-10 py-3">
           <Link href="/">
-            <Image src="/images/elsen_yacub_logo.png" alt="Logo" width={70} height={70} />
+            <Image src="/images/elsen_yacub_logo.png" alt="Logo" width={70} height={70} priority/>
           </Link>
           <div className="text-white text-lg font-bold leading-tight tracking-[-0.015em]">
             {props.title ? props.title : title}

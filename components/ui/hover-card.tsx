@@ -18,6 +18,7 @@ export default function CompanyCard({ logo, alt, description, elID }: CompanyCar
           fill
           className="object-contain"
           sizes="100%"
+          priority
         />
       </div>
 
