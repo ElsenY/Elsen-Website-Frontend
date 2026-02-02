@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { Toaster } from 'sonner';
 import Head from 'next/head';
+import { Analytics } from '@vercel/analytics/next';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -50,7 +51,8 @@ export default function RootLayout({
         className={`${geistMono.variable} ${inknutAntiqua.variable} ${geistSans.variable} ${inriaSerif.variable} antialiased bg-[#14191f] dark`}
       >
         <main>{children}</main>
-        <Toaster richColors/>
+        <Toaster richColors closeButton />
+        <Analytics />
       </body>
     </html>
   );

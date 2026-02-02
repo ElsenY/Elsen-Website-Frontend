@@ -10,6 +10,7 @@ export default function Hero() {
           alt="Hero Background"
           fill
           className="object-cover"
+          priority
         />
       
 
